@@ -1,343 +1,247 @@
-//CIRCULAR LINKED LIST
-
-#include<stdio.h>
-#include<stdlib.h>
-
-struct cll
-{
-	int data;
-	struct cll *next;
-};
-
-typedef struct cll node;
-
-node *create(node *first)
-{
-	node *new;
-	node *temp=first;
-	int x;
-	printf("enter data(enter -1 to stop)\n");
-	scanf("%d",&x);
-	while(x!=-1)
-	{
-		new=(node*)malloc(sizeof(node));
-		new->data=x;
-		new->next=NULL;
-		if(first==NULL)
-		{
-			first=new;
-		    temp=new;
-		}
-		else
-		{
-			temp->next=new;
-			temp=new;
-		}
-		printf("enter data(enter -1 to stop)\n");
-		scanf("%d",&x);
-	}
-	temp->next=first;
-	return first;
-}
-
-void display(node *first)
-{
-	node *temp=first;
-	if(first==NULL)
-	{
-		printf("no elements to display\n");
-	}
-	else
-	{
-		do
-		{
-			printf("|%d|->",temp->data);
-			temp=temp->next;
-		}while(temp!=first);
-		printf("|%d|",temp->data);
-	}
-}
-
-int count(node *first)
-{
-	int c=0;
-	node *temp=first;
-	if(first==NULL)
-	{
-		printf("there are no elements in the given list\n");
-	}
-	else
-	{
-		do
-		{
-			c++;
-			temp=temp->next;
-		}while(temp!=first);
-	}
-	return c;
-}
-
-void search(node *first,int x)
-{
-	node *temp=first;
-	int flag=0;
-	if(first==NULL)
-	{
-		printf("no list to search\n");
-	}
-	else
-	{
-		do
-		{
-			if(temp->data==x)
-			{
-				flag=1;
-				break;
-			}
-			else
-			{
-				temp=temp->next;
-			}
-		}while(temp!=first);
-	}
-	if(flag==1)
-	{
-		printf("%d is found in the given linked list\n",x);
-	}
-	else
-	{
-		printf("%d is not found in the given linked list\n",x);
-	}
-}
-
-node *insert_at_begin(node *first,int x);
-{
-	node *temp=first;
-	node *new=(node*)malloc(sizeof(node));
-	new->data=x;
-	new->next=NULL;
-	if(first==NULL)
-	{
-		first=new;
-		new->next=first;
-	}
-	else
-	{
-		while(temp->next!=first)
-		{
-			temp=temp->next;
-		}
-		temp->next=new;
-		new->next=first;
-		first=new;
-	}
-	return first;
-}
-
-node *insert_at_end(node *first,int x)
-{
-	node *temp=first;
-	node *new=(node*)malloc(sizeof(node));
-	new->data=x;
-	new->next=NULL;
-	if(first==NULL)
-	{
-		first=new;
-		new->next=first;
-	}
-	else
-	{
-	while(temp->next!=first)
-	{
-		temp=temp->next;
-	}
-	temp->next=new;
-	new->next=first;
-    }
-	return first;
-}
-
-node *insert_at_pos(node *first,int pos,int x)
-{
-	node *temp=first;
-	int i;
-	int n=count(first);
-	if(pos>0 && pos<n)
-	{
-	node *new=(node*)malloc(sizeof(node));
-	new->data=x;
-	new->next=NULL;
-	for(i=1,i<pos-1;i++)
-	{
-		temp=temp->next;
-	}
-	new->next=temp->next;
-	temp->next=new;
-	}
-	return first;
-}
-
-node *delete(node *first;int x)
-{
-	node *temp=first;
-	if(first==NULL)
-	{
-		printf("no element in the list to delete\n");
-	}
-	else
-	{
-		while(temp->next!=first)
-		{
-			if(temp->data==x)
-			{
-				
-			}
-		}
-	}
-}
-
-
-
-HASHING
-
 #include <stdio.h>
 #include <stdlib.h>
-int hash(int x)
+struct circularlist
 {
-    return x%10;
-}
-void insert(int a[10],int x)
+    int data;
+    struct circularlist *next;
+};
+typedef struct circularlist node;
+node* create(node *first)
 {
-    int flag=0,j;
-    int i=hash(x);
-    if (a[i]==-1)
+    node *new,*temp;
+    int x;
+    printf("Enter the data\n");
+    scanf("%d",&x);
+    while(x!=-1)
     {
-        a[i]=x;
-        flag=1;
+        new=(node*)malloc(sizeof(node));
+        new->data=x;
+        new->next=NULL;
+        if (first==NULL)
+        {
+            first=new;
+            temp=new;
+        }
+        else
+        {
+            temp->next=new;
+            temp=new;
+        }
+        printf("Enter data,Enter -1 to stop\n");
+        scanf("%d",&x);
+    }
+    temp->next=first;
+    return first;
+}
+void display(node *first)
+{
+    node *temp;
+    if (first==NULL)
+    {
+        printf("No list to print");
     }
     else
     {
-        j=i+1;
-        while(j%10!=i)
+        temp=first;
+        do
         {
-            if(a[j]==-1)
-            {
-                a[j]=x;
-                flag=1;
-                break;
-            }
-            j++;
-        }
-    }
-    if (flag==0)
-    {
-        printf("No slot to insert element\n");
+            printf("|%d|-->",temp->data);
+            temp=temp->next;
+        }while(temp!=first);
+        printf("|%d|\n",temp->data);
     }
 }
-void search(int a[10],int x)
+int count(node *first)
 {
-    int flag=0,j;
-    int i=hash(x);
-    if (a[i]==x)
+    node *temp=first;
+    int c=0;
+    if (first==NULL)
     {
-        flag=1;
+        return c;
     }
     else
     {
-        j=i+1;
-        while(j%10!=i)
+        do
         {
-            if (a[j]==x)
-            {
-                flag=1;
-                break;
-            }
-            j++;
-        }
+            c++;
+            temp=temp->next;
+        }while(temp!=first);
+        return c;
     }
+}
+void search(node *first,int ele)
+{
+    node *temp=first;
+    int flag=0;
+    do
+    {
+        if (temp->data==ele)
+        {
+            flag=1;
+            break;
+        }
+        temp=temp->next;
+    }while(temp!=first);
     if (flag)
     {
         printf("Element found\n");
     }
     else
     {
-        printf("Element not found");
+        printf("Element not found\n");
     }
 }
-void delete(int a[10],int x)
+node* insertatbegin(node *first,int ele)
 {
-    int flag=0,j;
-    int i=hash(x);
-    if (a[i]==x)
+    node *temp=first,*new;
+    new=(node*)malloc(sizeof(node));
+    new->data=ele;
+    new->next=new;
+    if (first==NULL)
     {
-        a[i]=-1;
-        flag=1;
+        first=new;
+        new->next=first;
     }
     else
     {
-        j=i+1;
-        while(j%10!=i)
+        while(temp->next!=first)
         {
-            if (a[j]==x)
+            temp=temp->next;
+        }
+        temp->next=new;
+        new->next=first;
+    }
+    return new;
+}
+node *insertatend(node *first,int ele)
+{
+    node *temp=first,*new;
+    new=(node*)malloc(sizeof(node));
+    new->data=ele;
+    new->next=NULL;
+    if(first==NULL)
+    {
+        first=new;
+        new->next=first;
+    }
+    else
+    {
+        while(temp->next!=first)
+        {
+            temp=temp->next;
+        }
+        temp->next=new;
+        new->next=first;
+    }
+    return first;
+}
+node* insertatpos(node *first,int pos,int ele)
+{
+    node *temp=first,*new;
+    int n=count(first);
+    new=(node*)malloc(sizeof(node));
+    new->data=ele;
+    new->next=NULL;
+    if(pos>1 && pos<n)
+    {
+        for (int i=1;i<pos-1;i++)
+        {
+            temp=temp->next;
+        }
+        new->next=temp->next;
+        temp->next=new;
+    }
+    return first;
+}
+node* delete(node *first,int ele)
+{
+    node *temp=first,*temp1;
+    int flag=0;
+    if (first==NULL)
+    {
+        printf("No list to delete\n");
+        return first;
+    }
+    else
+    {
+        while(temp->next!=first)
+        {
+            temp1=temp;
+            if (temp->data==ele)
             {
-                a[j]=-1;
                 flag=1;
                 break;
             }
-            j++;
+            else
+            {
+                temp1=temp;
+                temp=temp->next;
+            }
+        }
+        if (flag)
+        {
+            temp1->next=temp->next;
+            free(temp);
+            return first;
+        }
+        else
+        {
+            printf("Element not present to delete\n");
+            return first;
         }
     }
-    if (flag==0)
-    {
-        printf("Element not found to delete\n");
-    }
 }
-void display(int a[10])
+node *sort(node *first)
 {
-    int i;
-    for (i=0;i<10;i++)
+    node *temp=first,*temp1;
+    int x;
+    for(temp;temp!=NULL;temp=temp->next)
     {
-        printf("%3d",a[i]);
+        for(temp1=temp->next;temp1!=NULL;temp1=temp1->next)
+        {
+            if(temp->data>temp1->data)
+            {
+                x=temp->data;
+                temp->data=temp1->data;
+                temp1->data=x;
+            }
+        }
     }
-    printf("\n");
+    return first;
 }
 int main()
 {
-    int a[10],i,x1,x2,x3,ch;
-    for (i=0;i<10;i++)
-    {
-        a[i]=-1;
-    }
-    while(1)
-    {
-        printf("1:Insert\n2:Display\n3:Search\n4:Delete\n5:Exit\n");
-        scanf("%d",&ch);
-        switch(ch)
-        {
-            case 1: printf("Enter a value to insert\n");
-                    scanf("%d",&x1);
-                    do
-                    {
-                        insert(a,x1);
-                        printf("Enter a value(Enter -1 to stop)\n");
-                        scanf("%d",&x1);
-                    }while(x1!=-1);
-                    break;
-            case 2: display(a);
-                    break;
-            case 3: printf("Enter element to search\n");
-                    scanf("%d",&x2);
-                    search(a,x2);
-                    break;
-            case 4: printf("Enter element to delete\n");
-                    scanf("%d",&x3);
-                    delete(a,x3);
-                    display(a);
-                    break;
-            case 5: exit(0);
-            default:printf("Enter a valid choice\n");
-                    break;
-        }
-    }
+    int c,ele,ele1,ele2,ele3,pos,ele4;
+    node *head=NULL;
+    head=create(head);
+    display(head);
+    c=count(head);
+    printf("%d elements in list\n",c);
+    printf("Enter the element to search\n");
+    scanf("%d",&ele);
+    search(head,ele);
+    printf("Enter element to insert at first\n");
+    scanf("%d",&ele1);
+    head=insertatbegin(head,ele1);
+    display(head);
+    printf("Enter element to insert at end\n");
+    scanf("%d",&ele2);
+    head=insertatend(head,ele2);
+    display(head);
+    printf("Enter position to insert\n");
+    scanf("%d",&pos);
+    printf("Enter element to insert\n");
+    scanf("%d",&ele3);
+    head=insertatpos(head,pos,ele3);
+    display(head);
+    printf("Enter element to delete\n");
+    scanf("%d",&ele4);
+    head=delete(head,ele4);
+    display(head);
+    head=sort(head);
+    display(head);
     return 0;
 }
+
+
+
