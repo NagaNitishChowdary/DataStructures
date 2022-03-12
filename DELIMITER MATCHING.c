@@ -1,29 +1,36 @@
 #include<stdio.h>
-#define MAX 20
+#include<stdlib.h>
+#include<string.h>
+
+#define MAX 20 
+
 char a[MAX];
 int top=-1;
+
 void push(char ch)
 {
     a[++top]=ch;
 }
+
 char pop()
 {
     return a[top--];
 }
-int main()
+
+void main()
 {
-    char exp[MAX],c,x;
+    char e[MAX],c,x;
     int flag=1,i=0;
-    printf("enter the expression for delimiter matching ");
-    scanf("%s",exp);
-    while(exp[i]!='\0')
+    printf("enter expression\n");
+    scanf("%s",e);
+    while(e[i]!='\0')
     {
-        c=exp[i];
-        if(c=='('||c=='['||c=='{')
+        c=e[i];
+        if(c=='('||c=='{'||c=='[')
         {
             push(c);
         }
-        else if(c==')'||c==']'||c=='}')
+        else if(c==')'||c=='}'||c==']')
         {
             if(top==-1)
             {
@@ -33,9 +40,7 @@ int main()
             else
             {
                 x=pop();
-                if ( x == '(' && c==')' ||
-                x=='['&&c==']'||
-                x=='{'&&c=='}')
+                if((x=='('&&c==')')||(x=='['&&c==']')||(x=='{'&&c=='}'))
                 {
                     flag=1;
                 }
@@ -54,11 +59,10 @@ int main()
     }
     if(flag==1)
     {
-        printf("Matched");
+        printf("Matched\n");
     }
-    else
+    else 
     {
-        printf("Not Matched");
+        printf("not matched\n");
     }
-    return 0;
 }
