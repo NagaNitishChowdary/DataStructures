@@ -48,8 +48,8 @@ int main()
         }
         else 
         {
-            a=pop();
             b=pop();
+            a=pop();
             result=operation(a,b,ch);
             push(result);
         }
